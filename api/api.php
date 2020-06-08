@@ -7,7 +7,7 @@ if (isset($_GET['temperature']) && isset($_GET['temperature_unit']) && isset($_G
 	$student_responce = $_GET['student_responce'];
 	//$grade = "";
 
-	$calculate_grade = calculate($temperature,$temperature_unit,$target_unit,$student_responce);
+	$calculate_grade = calculate_temperature($temperature,$temperature_unit,$target_unit,$student_responce);
 
 	if (is_numeric($calculate_grade)) {
 		if(round($calculate_grade) == round($student_responce)){
@@ -24,15 +24,15 @@ if (isset($_GET['temperature']) && isset($_GET['temperature_unit']) && isset($_G
 	}
 
 	
-	response($grade,200,"success");
+	grade_response($grade,200,"success");
 }else{
-	response(NULL, 400,"Invalid Request");
+	grade_response(NULL, 400,"Invalid Request");
 	}
 
 
 //Kelviv Celsius	Fahrenheit	Rankine
 
-function calculate($temperature,$temperature_unit,$target_unit,$student_responce){
+function calculate_temperature($temperature,$temperature_unit,$target_unit,$student_responce){
 	if (is_numeric($temperature) && is_numeric($student_responce)) {
 		if($temperature_unit == "Fahrenheit" && $target_unit == "Kelvin"){
 			return ($temperature - 32) * 5/9 + 273.15;
@@ -79,7 +79,7 @@ function calculate($temperature,$temperature_unit,$target_unit,$student_responce
 
 }	
 
-function response($grade,$response_code,$response_desc){
+function grade_response($grade,$response_code,$response_desc){
 	$response['grade'] = $grade;
 	$response['response_code'] = $response_code;
 	$response['response_desc'] = $response_desc;
