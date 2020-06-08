@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    RewriteCond %{REQUEST_FILENAME} !\.(jpg|png)$
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-s
+    RewriteRule ^api/([^/]+)/([^/]+)/([^/]+)/([^/]+) api.php?temperature=$1&temperature_unit=$2&target_unit=$3&student_responce=$4  [QSA,NC,L]
+    RewriteCond %{REQUEST_FILENAME} !\.(jpg|png)$
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^(.*)$ api.php [QSA,NC,L]
+
+    RewriteCond %{REQUEST_FILENAME} !\.(jpg|png)$
+    RewriteCond %{REQUEST_FILENAME} -s
+    RewriteRule ^(.*)$ api.php [QSA,NC,L]  
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+</IfModule>
